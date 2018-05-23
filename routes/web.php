@@ -22,3 +22,4 @@ Route::get('/search', 'IpController@searchIp');
 //});
 
 Route::post('/search','IpController@search');
+Route::post('/searchByType','IpController@searchByType');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Elasticsearch\ClientBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class IpController extends Controller
 {
@@ -37,6 +38,33 @@ class IpController extends Controller
                 ]
         ];
  //       dd($params);
+        $response = $this->client->search($this->params);
+        return  $response['hits'];
+    }
+
+    public function searchByType(Request $request)
+    {
+        $rules = [
+            'type' => 'required',
+            'value' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+            return response()->json([
+                'code' => 1001,
+                'message' => $validator->errors()
+            ]);
+        $data = [];
+        foreach ($rules as $key => $value) {
+            $data[$key] = $request->input($key);
+        }
+        $this->params['body'] = [
+            'query' => [
+                'match' => [
+                    $data['type'] => $data['value']
+                ]
+            ]
+        ];
         $response = $this->client->search($this->params);
         return  $response['hits'];
     }
