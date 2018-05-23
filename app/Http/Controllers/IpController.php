@@ -38,7 +38,7 @@ class IpController extends Controller
         ];
  //       dd($params);
         $response = $this->client->search($this->params);
-        return $response;
+        return  $response['hits'];
     }
 
     public function searchIp(Request $request)
