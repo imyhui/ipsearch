@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/search');
-});
+Route::get('/', 'IpController@searchIp');
 
 Route::get('/search', 'IpController@searchIp');
 
