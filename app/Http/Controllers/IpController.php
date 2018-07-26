@@ -91,4 +91,34 @@ class IpController extends Controller
 //        dd($res);
         return view('search', compact('res','q'));
     }
+
+    public function  advancedSearch(Request $request)
+    {
+
+        $this->params['body'] = [
+            'query' => [
+//                'wildcard' => [
+//                    'ip' => "104.*?"
+//                ]
+                'regexp' => [
+                    'ip' => "104.17.210.109.*?"
+                ]
+//                'bool' => [
+//                    'must' => [
+////                        [ 'match' => [ 'timestamp' => '2017-11-21T02:30:28-05:00' ] ],
+////                        [ 'terms' => [ 'timestamp' => ['2017-11-21T02:30:28-05:00'] ] ],
+//
+////                        [ 'match' => [ 'ip' => '104.17.210.109' ] ],
+//                        [ 'range' => [ 'timestamp' => ['gte' => '2017-11-21T02:30:28-05:00'] ] ],
+//                    ]
+//                ]
+            ]
+        ];
+        //       dd($params);
+
+        $res = $this->client->search($this->params);
+        return response()->json([
+            'data' => $res
+        ]);
+    }
 }
