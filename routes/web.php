@@ -21,4 +21,5 @@ Route::get('/search', 'IpController@searchIp');
 
 Route::post('/search','IpController@search');
 Route::post('/searchByType','IpController@searchByType');
-Route::post('/ads','IpController@advancedSearch');
+Route::post('/ads','IpController@advancedSearchTest');
+Route::post('/advance','IpController@advancedSearch');
