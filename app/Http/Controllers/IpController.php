@@ -221,8 +221,6 @@ class IpController extends Controller
         ];
 
         $res = $this->client->search($this->params);
-        return response()->json([
-            'data' => $res
-        ]);
+        return $res['hits'];
     }
 }
