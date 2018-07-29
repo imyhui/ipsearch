@@ -94,44 +94,34 @@ class IpController extends Controller
     public function advancedSearchTest(Request $request)
     {
 
-        $this->params['body'] = [
-            'query' => [
-//                'wildcard' => [
-//                    'ip' => "104.*?"
-//                ]
-//                'regexp' => [
-//                    'ip' => "104.17.210.109.*?"
-////                     正则模糊匹配
-//                ],
-//                'regexp' => [
-//                    'data.http.response.status_line' => ".*?403.*?"
-//                ]
-//                'match' => [
-//                    'data.http.response.status_code' => 200
-//                ],
-//                'regexp' => [
-////                    'data.http.response.protocol.name' => "HTTP"
-//                    'data.http.response.headers.server' => "nginx.*?"
-//                ]
-                'regexp' => [
-//                    'data.http.response.headers.server' => "nginx.*?"
-                    'data.http.response.body' => "github.*?"
-                ]
-//                'bool' => [
-//                    'must' => [
-////                        [ 'match' => [ 'timestamp' => '2017-11-21T02:30:28-05:00' ] ],
-////                        [ 'terms' => [ 'timestamp' => ['2017-11-21T02:30:28-05:00'] ] ],
-//
-////                        [ 'match' => [ 'ip' => '104.17.210.109' ] ],
-//                        [ 'range' => [ 'timestamp' => ['gte' => '2017-11-21T02:30:28-05:00'] ] ],
-//                    ]
-//                ]
-            ]
-        ];
-        //       dd($params);
+        $rules = [];
+        $original = $request->rules;
+        $isStandard = preg_match('/(|)([^=]+)(=[^|]+)/', $original);
+        //todo
+        $arrs = explode("|", $original);
+        try {
+            foreach ($arrs as $arr) {
+                if ($arr != null) {
+                    $temp = explode("=", $arr);
+                    $rules[] = [
+                        $temp[0] => $temp[1]
+                    ];
+                }
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => '1001',
+                'message' => '语法错误'
+            ]);
+        }
+        foreach ($rules as $rule) {
+            foreach ($rule as $key => $value)
+                $request->$key = $value;
+        }
+        $res = $this->advancedSearch($request);
 
-        $res = $this->client->search($this->params);
         return response()->json([
+            'code' => 1000,
             'data' => $res
         ]);
     }
