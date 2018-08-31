@@ -143,8 +143,8 @@ class IpController extends Controller
             ]);
         if (isset($request->servers))
             array_push($res, [
-                'regexp' => [
-                    'data.http.response.headers.server' => ($request->servers) . ".*?"
+                'match' => [
+                    'data.http.response.headers.server' => $request->servers
                 ]
             ]);
         if (isset($request->powered_by))
@@ -210,6 +210,9 @@ class IpController extends Controller
             ]
         ];
 
+        $page = $request->page;
+        if(isset($page) && $page > 0)
+            $this->params['from'] = ($page - 1) * 10;
         $res = $this->client->search($this->params);
         return $res['hits'];
     }
