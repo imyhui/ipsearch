@@ -14,6 +14,9 @@ use Elasticsearch\ClientBuilder;
 
 class SearchService
 {
+    private $params;
+    private $client;
+
     public function __construct()
     {
         $this->params = [

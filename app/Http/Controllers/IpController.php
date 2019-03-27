@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class IpController extends Controller
 {
-    private $params;
-    private $client;
     private $searchService;
 
     public function __construct(SearchService $searchService)
