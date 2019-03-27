@@ -15,11 +15,8 @@ Route::get('/', 'IpController@searchIp');
 
 Route::get('/search', 'IpController@searchIp');
 
-//Route::get('/', function () {
-//    return view('search');
-//});
 
 Route::post('/search','IpController@search');
 Route::post('/searchByType','IpController@searchByType');
-Route::post('/ads','IpController@advancedSearchTest');
+//Route::post('/ads','IpController@advancedSearchTest');
 Route::post('/advance','IpController@advancedSearch');

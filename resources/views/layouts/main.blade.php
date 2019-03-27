@@ -12,8 +12,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     {{--<script>--}}
@@ -37,7 +36,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="/">网络空间探测0.0.1</a>
+                            <a class="navbar-brand" href="/">网络空间探测0.1.0</a>
                         </div>
                     </div><!-- /.container-fluid -->
                 </nav>
@@ -47,7 +46,7 @@
     </div>
 </div>
 <!-- Scripts -->
-<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
