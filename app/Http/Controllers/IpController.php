@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Elasticsearch\ClientBuilder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class IpController extends Controller
@@ -29,6 +30,10 @@ class IpController extends Controller
                 'message' => '未提交ip'
             ]);
         }
+        $data = Redis::get($request->ip);
+        if ($data != null) {
+            return unserialize($data);
+        }
 
         $this->params['body'] = [
             'query' => [
@@ -39,6 +44,11 @@ class IpController extends Controller
         ];
         //       dd($params);
         $response = $this->client->search($this->params);
+
+        if($response['hits']['total'] != 0){
+
+            Redis::setex($request->ip, 12 * 3600 ,serialize($response['hits']));
+        }
         return $response['hits'];
     }
 
@@ -211,7 +221,7 @@ class IpController extends Controller
         ];
 
         $page = $request->page;
-        if(isset($page) && $page > 0)
+        if (isset($page) && $page > 0)
             $this->params['from'] = ($page - 1) * 10;
         $res = $this->client->search($this->params);
         return $res['hits'];
