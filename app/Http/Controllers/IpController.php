@@ -14,8 +14,8 @@ class IpController extends Controller
     public function __construct()
     {
         $this->params = [
-            'index' => 'test',
-            'type' => 'ip',
+            'index' => config('database.es.index'),
+            'type' => config('database.es.type'),
         ];
         $this->client = ClientBuilder::create()->build();
     }

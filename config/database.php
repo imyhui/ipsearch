@@ -117,4 +117,13 @@ return [
 
     ],
 
+    /*
+     *  elasticsearch
+     */
+
+    'es' => [
+        'index' => env('ES_INDEX'),
+        'type' => env('ES_TYPE'),
+    ],
+
 ];
